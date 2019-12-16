@@ -1,0 +1,17 @@
+{
+    "framework_version": "3.5",
+    "xcode_version": "9",
+    "cordova_version": "7.1",
+    "title-ja": "Quiz",
+    "title-en": "",
+    "description-ja": "",
+    "description-en": "",
+    "category": "User Template",
+    "platform": [
+        "android",
+        "ios",
+        "winrt",
+        "chrome"
+    ],
+    "name": "generated-1468393263-577f54077e2193ad75036527"
+}
