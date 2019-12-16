@@ -324,3 +324,31 @@ function selectQuiz(){
                 console.log("error:" + error.message);
              });
 }
+function findScore(){
+    $("#ranking").html("");
+    
+    //会員クラスを検索するクエリを作成
+    ncmb.User.order("score", true)
+        .limit(5)
+        .fetchAll()
+        .then(function(results){
+                //検索が成功した場合は会員情報のリストをdisplayRankingメソッドに渡す
+                displayRanking(results);              
+        })
+        .catch(function(error){
+                console.log("error:" + error.message);   
+                if(error.status == "401") {
+                    logout();
+                    //未ログインの場合はログイン画面を表示
+                    quizNavi.pushPage("login.html", options);
+                }
+        });
+}
+
+//上位5番目までのランキングを表示
+function displayRanking(ranking){
+    for (var i = 0; i < ranking.length; i++){
+        var topUser = ranking[i];
+        $("#ranking").append((i+1) + "...userName:" + topUser.get("userName") + ", score:" + topUser.get("score") + "<br/>");
+    }
+}
