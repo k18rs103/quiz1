@@ -296,10 +296,3 @@ function displayRanking(ranking){
         $("#ranking").append((i+1) + "...userName:" + topUser.get("userName") + ", score:" + topUser.get("score") + "<br/>");
     }
 }
-if(hour < 9 || hour >= 24) {
-         $("body").css("backgroundColor","#555555");
-       }else if(hour >= 9 && hour < 12) {
-         $("body").css("backgroundColor","yellow");
-       }else{
-         $("body").css("backgroundColor","blue")
-       }

@@ -1,1 +1,9 @@
-
+body{
+  background-color: plum;
+  text-align: center;
+}
+#message {
+  margin-top: 60px;
+  font-size: 26px;
+  color: yellowgreen;
+}
