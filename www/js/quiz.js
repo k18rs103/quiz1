@@ -289,7 +289,6 @@ function findScore(){
                 }
         });
 }
-
 //上位5番目までのランキングを表示
 function displayRanking(ranking){
     for (var i = 0; i < ranking.length; i++){
@@ -297,58 +296,10 @@ function displayRanking(ranking){
         $("#ranking").append((i+1) + "...userName:" + topUser.get("userName") + ", score:" + topUser.get("score") + "<br/>");
     }
 }
-var quizSize = 0;
-//クイズを検索する
-function selectQuiz(){
-    //クイズを検索するncmb.Queryクラスのインスタンスを作成する
-    var QuizClass = ncmb.DataStore("Quiz");
-    
-    //指定された条件に合致するクイズの件数を調べる
-    QuizClass.count().fetchAll()
-                     .then(function(objects){
-                            //登録されたクイズの数を保持する
-                            quizSize = objects.count;
-                     })
-                     .catch(function(error) {
-                            // エラー
-                            console.log("error:" + error.message);
-                     });
-    
-    //作成したクエリに条件を設定する
-    QuizClass.skip(Math.floor(Math.random() * quizSize))
-             .fetch()
-             .then(function(result){
-                displayQuiz(result);
-             })
-             .catch(function(error) {
-                console.log("error:" + error.message);
-             });
-}
-function findScore(){
-    $("#ranking").html("");
-    
-    //会員クラスを検索するクエリを作成
-    ncmb.User.order("score", true)
-        .limit(5)
-        .fetchAll()
-        .then(function(results){
-                //検索が成功した場合は会員情報のリストをdisplayRankingメソッドに渡す
-                displayRanking(results);              
-        })
-        .catch(function(error){
-                console.log("error:" + error.message);   
-                if(error.status == "401") {
-                    logout();
-                    //未ログインの場合はログイン画面を表示
-                    quizNavi.pushPage("login.html", options);
-                }
-        });
-}
-
-//上位5番目までのランキングを表示
-function displayRanking(ranking){
-    for (var i = 0; i < ranking.length; i++){
-        var topUser = ranking[i];
-        $("#ranking").append((i+1) + "...userName:" + topUser.get("userName") + ", score:" + topUser.get("score") + "<br/>");
-    }
-}
+if(hour < 9 || hour >= 24) {
+         $("body").css("backgroundColor","#555555");
+       }else if(hour >= 9 && hour < 12) {
+         $("body").css("backgroundColor","yellow");
+       }else{
+         $("body").css("backgroundColor","blue")
+       }
