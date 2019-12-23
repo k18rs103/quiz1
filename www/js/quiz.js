@@ -185,7 +185,7 @@ function answerQuiz(selectedOptions){
     } else {
         
         //間違い時に×画像を出す
-        $("#question").append("<br/><img src='images/batsu.png'><br/>");
+        $("#question").append("<br/><img src='images/batu.png'><br/>");
         
         //間違い時に端末を振動させる(振動する時間(ミリ秒単位))
         navigator.vibrate(1000);
