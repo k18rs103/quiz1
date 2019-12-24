@@ -7,7 +7,7 @@ var ncmb = new NCMB("838e7fefe5895bcd558762f2970c19f4dbb09f94b5283e71cf205e42cbf
 $(function (){
    
     //クイズを表示するイベントを登録
-    $(document.body).on('pageinit', '#answer_page', function() {refreshQuiz();});
+    $(document.body).on('pageinit', '#answer_page', function(){refreshQuiz();});
     
     //クイズ作成ボタンを表示するイベトを登録
     //HTMLに記述したボタンはJSで操作できない
@@ -296,3 +296,59 @@ function displayRanking(ranking){
         $("#ranking").append((i+1) + "...userName:" + topUser.get("userName") + ", score:" + topUser.get("score") + "<br/>");
     }
 }
+//会員クラスを検索するクエリを作成
+    ncmb.User.order("score", true)
+        .limit(5)
+        .fetchAll()
+        .then(function(results){
+                //検索が成功した場合は会員情報のリストをdisplayRankingメソッドに渡す
+                displayRanking(results);              
+        })
+        .catch(function(error){
+                console.log("error:" + error.message);   
+                if(error.status == "401") {
+                    logout();
+                    //未ログインの場合はログイン画面を表示
+                    quizNavi.pushPage("login.html", options);
+                }
+        });
+         var user = new ncmb.User();
+
+    //ユーザー名とパスワードとスコアをインスタンスに設定
+    user.set("userName", userName)
+        .set("password", password)
+        .set("score", 0);
+
+    //会員登録を実行し、上で設定されたコールバックが実行される
+    user.signUpByAccount(callBack_Account);
+     //ログインを実行したあとのコールバックを設定
+    var callBack_Login = function(error, obj) {
+        if (error) {
+            //エラーコードの表示
+            $("#login_error_msg").text("errorCode:" + error.code + ", errorMessage:" + error.message);
+        } else {
+
+            // ----------------------------------> ここから追加するコード 
+            //現在の登録ユーザー取得
+            var user = ncmb.User.getCurrentUser();
+            //ACLの設定を行う
+            var acl = new ncmb.Acl();
+            //登録ユーザーに対するアクセス制御(読み込みと更新可能)
+            acl.setUserWriteAccess(user,true);
+            acl.setUserReadAccess(user,true);
+            //全員に対するアクセス制御(読み込み可能のみ)
+            acl.setPublicReadAccess(true);
+            user.set("acl", acl);
+            user.update()
+                .then(function(obj){
+                    //なし
+                })
+                .catch(function(error){
+                    console.log("error:" + error.message);
+                });
+            // ----------------------------------> ここまで追加するコード
+                 
+            //メニュー画面に遷移
+            quizNavi.pushPage("menu.html");
+        }
+    }
