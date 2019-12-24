@@ -1,28 +1,28 @@
 <ons-page id="menu_page">
     <div style="text-align: center">
-        <h1>メニュー</h1>
+       
+         <font color = "pink"><h1>メニュー</h1></font>
+</p>
         
         <p>
             <ons-button id="answer_quiz_button" onclick="quizNavi.pushPage('answerQuiz.html')">
-            クイズを解く！
+            <font color = "yellow">クイズを解く！</font>
             </ons-button>
             <br/>
             <br/>
             <ons-button id="create_quiz_button" onclick="quizNavi.pushPage('createQuiz.html')">
-            クイズを作る！
+           <font color = "yellow">クイズを作る！</font>
+            </ons-button>     
+            <ons-button id="logout_button" onclick="logout()">
+            <font color = "yellow">ログアウト</font>
             </ons-button>
-
+                    <br/>
             <br/>
-            <br/>
-            連続正解数ランキング
+            <h1>連続正解数ランキング</h1>
             <br/>
             <span id="ranking"></span>
             <br/>
             <br/>
-            
-            <ons-button id="logout_button" onclick="logout()">
-            ログアウト
-            </ons-button>
         </p>
     </div>
 </ons-page>
