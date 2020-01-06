@@ -173,8 +173,7 @@ function answerQuiz(selectedOptions){
     
     if (answerText === selectedOptions) {
         //正解時に○画像を出す
-        $("#question").append("<br/><img src='images/maru.png'><br/>" + (score+1) + "問連続正解中！");
-        
+        $("#question").append("<br/><img src='images/maru.png'><br/>" + (score+1) + "問連続正解中！"); 
         //次の問題を開くボタンを表示する
         var btn = $("<ons-button onclick='refreshQuiz()'>次の問題</ons-button>");
         btn.appendTo($("#question"));
